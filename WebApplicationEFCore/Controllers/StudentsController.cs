@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationEFCore.Data;
 using WebApplicationEFCore.Models;
@@ -20,11 +15,28 @@ namespace WebApplicationEFCore.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-              return _context.Students != null ? 
-                          View(await _context.Students.ToListAsync()) :
-                          Problem("Entity set 'WebApplicationEFCoreContext.Student'  is null.");
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            var students = from s in _context.Students
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
+            return View(await students.AsNoTracking().ToListAsync());
         }
 
         // GET: Students/Details/5
@@ -150,14 +162,14 @@ namespace WebApplicationEFCore.Controllers
             {
                 _context.Students.Remove(student);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool StudentExists(int id)
         {
-          return (_context.Students?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Students?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
