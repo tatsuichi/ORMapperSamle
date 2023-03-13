@@ -1,3 +1,6 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using WebApplicationEFCore.Data;
 namespace WebApplicationEFCore
 {
     public class Program
@@ -5,6 +8,8 @@ namespace WebApplicationEFCore
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<WebApplicationEFCoreContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("WebApplicationEFCoreContext") ?? throw new InvalidOperationException("Connection string 'WebApplicationEFCoreContext' not found.")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
