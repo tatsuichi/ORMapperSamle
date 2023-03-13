@@ -11,6 +11,8 @@ namespace WebApplicationEFCore
             builder.Services.AddDbContext<WebApplicationEFCoreContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("WebApplicationEFCoreContext") ?? throw new InvalidOperationException("Connection string 'WebApplicationEFCoreContext' not found.")));
 
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
