@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebApplicationEFCore.Models;
 
 namespace WebApplicationEFCore.Data
@@ -14,6 +10,15 @@ namespace WebApplicationEFCore.Data
         {
         }
 
-        public DbSet<WebApplicationEFCore.Models.Student> Student { get; set; } = default!;
+        public DbSet<Course> Courses { get; set; } = default!;
+        public DbSet<Enrollment> Enrollments { get; set; } = default!;
+        public DbSet<Student> Students { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Course>().ToTable("Course");
+            modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
+            modelBuilder.Entity<Student>().ToTable("Student");
+        }
     }
 }
