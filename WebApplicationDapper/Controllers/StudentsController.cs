@@ -5,25 +5,25 @@ namespace WebApplicationDapper.Controllers
 {
     public class StudentsController : Controller
     {
-        // GET: StudentsController
+        // GET: Students
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: StudentsController/Details/5
+        // GET: Students/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: StudentsController/Create
+        // GET: Students/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StudentsController/Create
+        // POST: Students/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -38,13 +38,13 @@ namespace WebApplicationDapper.Controllers
             }
         }
 
-        // GET: StudentsController/Edit/5
+        // GET: Students/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: StudentsController/Edit/5
+        // POST: Students/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -59,13 +59,13 @@ namespace WebApplicationDapper.Controllers
             }
         }
 
-        // GET: StudentsController/Delete/5
+        // GET: Students/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: StudentsController/Delete/5
+        // POST: Students/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
